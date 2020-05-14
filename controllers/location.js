@@ -23,7 +23,7 @@ exports.getQuotes = async (req, res) => {
     const diff = moment.preciseDiff(start, end, true);
     const result = await Location.find().lean();
 
-    let modified = result.map(obj => {
+    let modified = result.map((obj) => {
       let quote = 0;
       let objb = {};
 
@@ -65,9 +65,32 @@ exports.getAdmin = async (req, res) => {
 
 exports.post = async (req, res) => {
   try {
-    const result = await Location.create(req.body);
+    console.log('this is the request body', req.body);
+    // console.log(req.body)
+    const {
+      formatted_address,
+      price,
+      daily_price,
+      weekly_price,
+      monthly_price,
+      image,
+      location,
+    } = req.body;
+    const newLocation = new Location({
+      formatted_address,
+      price,
+      daily_price,
+      weekly_price,
+      monthly_price,
+      image,
+      location: { lat: location.lat, lng: location.lng },
+    });
+    console.log('attempting to save', newLocation);
+    const result = await newLocation.save();
+    console.log('result', result);
     res.status(201).json(result);
   } catch (err) {
+    console.log('error', err);
     res.status(500).json(err);
   }
 };

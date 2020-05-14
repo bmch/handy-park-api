@@ -36,6 +36,7 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     },
     async (accessToken, refreshToken, profile, cb) => {
+      console.log('inside new google stategy');
       const { email, id, given_name, family_name } = profile;
       const currentUser = await User.findOne({
         $or: [{ email: email }, { googleId: id }],

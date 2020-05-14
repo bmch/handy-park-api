@@ -55,7 +55,8 @@ exports.login = async (req, res, next) => {
     if (!user) {
       const error = new Error('User not found.');
       error.statusCode = 401;
-      res.status(401).json({ message: 'Could not find your account.' });
+      //res.status(401).json({ message: 'Could not find your account.' });
+      res.json({ message: 'Could not find your account.' });
       throw error;
     }
     loadedUser = user;
@@ -93,6 +94,7 @@ exports.login = async (req, res, next) => {
 
 exports.googleSuccess = (req, res) => {
   if (req.user) {
+    console.log('inside google success');
     const { email, _id } = req.user;
     const token = jwt.sign(
       {
