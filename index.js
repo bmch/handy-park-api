@@ -7,9 +7,19 @@ const passportSetup = require('./config/passport-setup');
 const parkingRoutes = require('./routes/parking');
 const authRoutes = require('./routes/auth');
 const privateRoutes = require('./routes/user');
-app.use(cors());
 
+app.use(cors());
 app.use(passport.initialize());
+app.use(express.json());
+app.use('/parking', parkingRoutes);
+app.use('/auth', authRoutes);
+app.use('/user', privateRoutes);
+
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT, () => {
+  console.log(` ✅ 🚀 Server is listening on port ${PORT}`); // eslint-disable-line no-console
+});
 
 // const whitelist = [
 //   process.env.CLIENT_URL,
@@ -28,18 +38,3 @@ app.use(passport.initialize());
 // };
 
 //app.use(cors(corsOptions));
-
-app.use(express.json());
-
-app.use('/health', function (req, res) {
-  res.sendStatus(200);
-});
-app.use('/parking', parkingRoutes);
-app.use('/auth', authRoutes);
-app.use('/user', privateRoutes);
-
-const PORT = process.env.PORT || 3001;
-
-app.listen(PORT, () => {
-  console.log(` ✅ 🚀 Server is listening on port ${PORT}`); // eslint-disable-line no-console
-});

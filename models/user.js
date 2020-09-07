@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ObjectId = Schema.ObjectId;
 
 const userSchema = new Schema({
   email: {
@@ -17,7 +18,9 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  bookings: [{ type: Schema.Types.ObjectId, ref: 'Booking' }],
   googleId: String,
+  // car_reg: { type: String },
 });
 
 userSchema.pre('validate', function (next) {

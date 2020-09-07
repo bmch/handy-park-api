@@ -20,7 +20,9 @@ const jwtOptions = {
 passport.use(
   new passportJwt.Strategy(jwtOptions, async (payload, done) => {
     console.log('passport jwt strategy');
+    console.log('payload sub is ', payload.sub);
     const user = await User.findById(payload.sub);
+    console.log('user is ', user);
     if (user) {
       return done(null, user, payload);
     }

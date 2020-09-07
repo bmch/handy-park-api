@@ -105,6 +105,6 @@ exports.googleSuccess = (req, res) => {
       process.env.JWT_SECRET
     );
 
-    res.redirect('http://localhost:8080/loginSuccess?token=' + token);
+    res.redirect(process.env.CLIENT_URL + '/loginSuccess?token=' + token);
   }
 };

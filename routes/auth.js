@@ -46,18 +46,7 @@ router.get(
 router.get(
   '/google/redirect',
   passport.authenticate('google', { session: false }),
-  // (req, res) => {
-  //   res.redirect('http://localhost:8080/loginSuccess');
-  // }
   authController.googleSuccess
 );
-
-// router.get(
-//   '/google/redirect',
-//   passport.authenticate('google', {
-//     successRedirect: 'http://localhost:8080/loginSuccess',
-//     failureRedirect: '/auth/login/failed',
-//   })
-// );
 
 module.exports = router;
